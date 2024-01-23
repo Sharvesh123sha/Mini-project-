@@ -1,0 +1,150 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Define the URL for live cricket scores
+url = "http://www.cricbuzz.com/live-cricket-scores"
+
+# Send a GET request to the URL
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Find the elements containing live scores
+    live_scores = soup.find_all('div', class_='cb-col cb-col-100 cb-ltst-wgt-hdr')
+
+    # Extract and print the live scores
+    for score in live_scores:
+        print(score.text.strip())
+else:
+    print("Failed to fetch live scores. Status code:", response.status_code)
+import requests
+import json
+
+# Define the URL of the JSON API
+url = "https://bbb.com/api/data.json"
+
+# Send a GET request to the API
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the JSON data
+    data = json.loads(response.text)
+    
+    # Work with the JSON data
+    # For example, print a specific field
+    print(data['key_name'])
+else:
+    print("Failed to fetch data from the API. Status code:", response.status_code)
+import smtplib
+
+# Define your alert condition
+threshold_value = 100  # Example threshold
+current_value = 85  # Example current value
+
+if current_value < threshold_value:
+    # Send an email alert
+    subject = "Alert: Threshold Exceeded"
+    message = f"The current value ({current_value}) is below the threshold ({threshold_value})."
+    recipient_email = "recipient@example.com"
+
+    smtp_server = "smtp.example.com"
+    smtp_port = 587
+    smtp_username = "your_email@example.com"
+    smtp_password = "your_password"
+
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        server.login(smtp_username, smtp_password)
+        server.sendmail(smtp_username, recipient_email, f"Subject: {subject}\n\n{message}")
+    print("Alert email sent.")
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
+
+# Create the main application instance
+app = QApplication(sys.argv)
+
+# Create a main window
+window = QWidget()
+window.setWindowTitle("My GUI App")
+
+# Create a label widget
+label = QLabel("Hello, PyQt!")
+label.move(50, 50)
+
+# Create a button widget
+button = QPushButton("Click Me", window)
+button.move(50, 80)
+button.clicked.connect(lambda: label.setText("Button Clicked!"))
+
+# Show the main window
+window.setGeometry(100, 100, 300, 200)
+window.show()
+
+# Run the PyQt event loop
+sys.exit(app.exec_())
+import requests
+
+url = "https://api.example.com/data"
+
+try:
+    # Send a GET request to the API
+    response = requests.get(url)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse and process the response data here
+        data = response.json()
+        print("API Response:", data)
+    else:
+        # Handle non-200 status codes
+        print(f"API Request Failed with Status Code {response.status_code}")
+        # You can raise an exception, log the error, or take other appropriate action here
+
+except requests.exceptions.RequestException as e:
+    # Handle network-related errors (e.g., connection timeout, DNS resolution failure)
+    print(f"API Request Failed: {e}")
+except requests.exceptions.HTTPError as e:
+    # Handle HTTP-related errors (e.g., 404 Not Found, 500 Internal Server Error)
+    print(f"API Request Failed: {e}")
+except Exception as e:
+    # Handle other unexpected exceptions
+    print(f"An unexpected error occurred: {e}")
+
+# Continue with the rest of your code
+import time
+import random
+
+# Mock function to fetch live cricket scores (replace with actual API calls)
+def fetch_live_scores():
+    teams = ["Team A", "Team B"]
+    score = random.randint(100, 300)
+    overs = random.randint(10, 50)
+    return f"{teams[0]} vs {teams[1]} | {score}/{overs}"
+
+# Mock function to send alerts (replace with actual alerting mechanism)
+def send_alert(message):
+    print(f"ALERT: {message}")
+
+# Simulate live match events and send alerts
+while True:
+    # Fetch live cricket scores
+    live_score = fetch_live_scores()
+    
+    # Check if a specific condition is met (e.g., a wicket falls)
+    if "wicket" in live_score.lower():
+        send_alert("WICKET ALERT: A wicket has fallen!")
+    
+    # Print live scores
+    print(live_score)
+    
+    # Sleep for a few seconds to simulate real-time updates
+    time.sleep(random.randint(5, 10))
+# Calculate the average of a list of numbers
+def calculate_average(numbers):
+    total = sum(numbers)
+    count = len(numbers)
+    return total / count
